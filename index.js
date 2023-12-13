@@ -24,7 +24,7 @@ let UrlSchema = new Schema({ url: String, shorturl: Number });
 let Url = mongoose.model("Url", UrlSchema);
 
 app.get('/', function (req, res) {
-  res.sendFile(process.cwd() + '/views/index.html');
+  res.sendFile(__dirname + '/views/index.html');
 });
 
 // Your first API endpoint
