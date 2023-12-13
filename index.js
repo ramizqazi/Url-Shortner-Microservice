@@ -23,12 +23,12 @@ let UrlSchema = new Schema({ url: String, shorturl: Number });
 
 let Url = mongoose.model("Url", UrlSchema);
 
-app.get('/', (req, res) => {
+app.get('/', function (req, res) {
   res.sendFile(process.cwd() + '/views/index.html');
 });
 
 // Your first API endpoint
-app.post('/api/shorturl', (req, res) => {
+app.post('/api/shorturl', function (req, res) {
   console.log(req.body);
   const bodyurl = req.body.url;
   const checkaddress = dns.lookup(urlparser.parse(bodyurl).hostname, (err, address) => {
@@ -49,7 +49,7 @@ app.post('/api/shorturl', (req, res) => {
 
 });
 
-app.get('/api/shorturl/:shortUrl',  (req, res) => {
+app.get('/api/shorturl/:shortUrl', function(req, res) {
   let shortURL = req.params.shortUrl;
   Url.findOne({ shorturl: Number(shortURL) }).then((data) => {
     res.redirect(data.url);
@@ -58,6 +58,7 @@ app.get('/api/shorturl/:shortUrl',  (req, res) => {
   });
 })
 
-app.listen(port, function () {
+// listen for requests :)
+var listener = app.listen(port, function () {
   console.log(`Listening on port ${port}`);
 });
