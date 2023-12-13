@@ -10,13 +10,13 @@ const app = express();
 // http://expressjs.com/en/starter/static-files.html
 
 // Basic Configuration
-const port = process.env.PORT || 3000;
-mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+const port = 3000;
+mongoose.connect("mongodb+srv://ramiz:takkansix123@panaverse-backend-by-ra.sjl8l5i.mongodb.net/?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true });
 //console.log(mongoose.connection.readyState);
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static('public'));
+app.use('/public', express.static(`${process.cwd()}/public`));
 
 const Schema = mongoose.Schema;
 let UrlSchema = new Schema({ url: String, shorturl: Number });
@@ -49,7 +49,7 @@ app.post('/api/shorturl', function (req, res) {
 
 });
 
-app.get('/api/shorturl/:shortUrl', function(req, res) {
+app.get('/api/shorturl/:shortUrl', function (req, res) {
   let shortURL = req.params.shortUrl;
   Url.findOne({ shorturl: Number(shortURL) }).then((data) => {
     res.redirect(data.url);
