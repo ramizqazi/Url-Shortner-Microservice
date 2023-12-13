@@ -16,7 +16,7 @@ mongoose.connect("mongodb+srv://ramiz:takkansix123@panaverse-backend-by-ra.sjl8l
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use('/public', express.static(`${process.cwd()}/public`));
+// app.use('/public', express.static(`${process.cwd()}/public`));
 app.use(express.static('public'));
 
 const Schema = mongoose.Schema;
